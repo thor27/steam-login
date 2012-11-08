@@ -1,0 +1,7 @@
+Package: steam-login-hacked
+Version: 1
+Section: base
+Priority: optional
+Architecture: all
+Maintainer: thor27@gmail.com
+Description: Put STEAM BigPicture mode at login screen 
