@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Clean up after GDM
+xprop -root -remove _NET_NUMBER_OF_DESKTOPS \
+      -remove _NET_DESKTOP_NAMES \
+      -remove _NET_CURRENT_DESKTOP 2> /dev/null
+
+/usr/bin/openbox --sm-disable &
+
+xrandr --auto
+which nvidia-settings && nvidia-settings -l 
+
+if [ -f /etc/steam-hacked ] 
+then
+    steam steam://open/bigpicture
+else
+    steam -bigpicture
+fi
+
