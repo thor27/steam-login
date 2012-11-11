@@ -1,8 +1,8 @@
 Package: steam-login
-Version: 2
+Version: 3
 Section: base
 Priority: optional
 Architecture: all
-Depends: openbox
+Depends: xfwm4
 Maintainer: thor27@gmail.com
 Description: Put STEAM BigPicture mode at login screen 

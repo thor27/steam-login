@@ -5,14 +5,17 @@ Put STEAM BigPicture mode at login screen
 
 NEWS
 ----
+
+* Version 3
+Improved multimonitor setup, loading gnome (unity) settings, chagend openbox to xfwm4: improving compatibility, removing unecessary new options added to login screen and fixing the need to "alt+tab" after playing a game in hacked version
+
+* Version 2
 Now use openbox Window Manager to improve game compatibility corectly setting focus on the active window. The openbox is now set as dependecy on the platform
 
 KNOWN ISSUES
 ------------
 
-All Versions: You may have issues with multi-monitor setup. Still can't figure out yet a way to fix this, any help is appreciate
-
-Hacked version: After playing a game you will need to press "alt+tab" to return to the steam bigpicture mode. After exiting you will need to press on the steam window on "steam" and after "exit". If you press in the close button the window will only minimize, you may need to press alt+tab again to gain focus and then exit it.
+Hacked version: After exiting you will need to press on the steam window on "steam" and after "exit". If you press in the close button the window will only minimize, you may need to press alt+tab again to gain focus and then exit it.
 
 INSTALL
 -------
