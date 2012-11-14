@@ -24,5 +24,16 @@ Install <a href="https://github.com/thor27/steam-login/blob/master/steam-login_3
 
 Install <a href="https://github.com/thor27/steam-login/blob/master/steam-login-hacked_3_all.deb?raw=true">steam-login-hacked_3_all.deb</a> if you do not have access to the beta. After exiting the big screen mode, you need to click on steam menu, and exit do quit. The close button won't work
 
+HACKING ON IT
+-------------
+It's a pretty simple project.
 
+You just need to put the correct files on steam-login or stea-login-hacked folder, as if was your / folder. on DEBIAN control you may change version dependencies and stuff
 
+To build the package you just need to type:
+
+```
+dpkg --build steam-login .
+```
+where steam-login is the steam-login folder (ex: steam-login or steam-login hacked) and . is where the package should be.
+Please fork-it and improve it :)
