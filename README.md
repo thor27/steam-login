@@ -20,9 +20,9 @@ Hacked version: After exiting you will need to press on the steam window on "ste
 INSTALL
 -------
 
-Install <a href="https://github.com/thor27/steam-login/blob/master/steam-login_3_all.deb?raw=true">steam-login_3_all.deb</a> if you have access to the beta. This will still work if you don't access the beta, you just can't click on the window saying that the closed beta for mac (?!) is not available to you.
+Install <a href="https://github.com/downloads/thor27/steam-login/steam-login_3_all.deb">steam-login_3_all.deb</a> if you have access to the beta. This will still work if you don't access the beta, you just can't click on the window saying that the closed beta for mac (?!) is not available to you.
 
-Install <a href="https://github.com/thor27/steam-login/blob/master/steam-login-hacked_3_all.deb?raw=true">steam-login-hacked_3_all.deb</a> if you do not have access to the beta. After exiting the big screen mode, you need to click on steam menu, and exit do quit. The close button won't work
+Install <a href="https://github.com/downloads/thor27/steam-login/steam-login-hacked_3_all.deb">steam-login-hacked_3_all.deb</a> if you do not have access to the beta. After exiting the big screen mode, you need to click on steam menu, and exit do quit. The close button won't work
 
 HACKING ON IT
 -------------
