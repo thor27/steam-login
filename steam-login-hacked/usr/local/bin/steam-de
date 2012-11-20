@@ -1,20 +1,18 @@
 #!/bin/bash
 
 # Clean up after GDM
-xprop -root -remove _NET_NUMBER_OF_DESKTOPS \
-      -remove _NET_DESKTOP_NAMES \
-      -remove _NET_CURRENT_DESKTOP 2> /dev/null
+#xprop -root -remove _NET_NUMBER_OF_DESKTOPS \
+#      -remove _NET_DESKTOP_NAMES \
+#      -remove _NET_CURRENT_DESKTOP 2> /dev/null
 
-xfwm4 &
-
+xfwm4 --replace --daemon --compositor=off
 which nvidia-settings && nvidia-settings -l 
 which gnome-settings-daemon && gnome-settings-daemon &
 
-
 if [ -f /etc/steam-hacked ] 
 then
-    steam steam://open/bigpicture
+    exec steam steam://open/bigpicture
 else
-    steam -bigpicture
+    exec steam -bigpicture
 fi
 
