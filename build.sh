@@ -1,0 +1,1 @@
+dpkg --build steam-login .
