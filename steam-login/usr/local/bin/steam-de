@@ -1,18 +1,60 @@
 #!/bin/bash
+#STEAM DE - Script for starting Steam at login
+#Copyright (C) 2012  Thomaz de Oliveira dos Reis <thor27@gmail.com>
+#
+#This program is free software; you can redistribute it and/or
+#modify it under the terms of the GNU General Public License
+#as published by the Free Software Foundation; either version 2
+#of the License, or (at your option) any later version.
+#
+#This program is distributed in the hope that it will be useful,
+#but WITHOUT ANY WARRANTY; without even the implied warranty of
+#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#GNU General Public License for more details.
+#
+#You should have received a copy of the GNU General Public License
+#along with this program; if not, write to the Free Software
+#Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-# Clean up after GDM
-#xprop -root -remove _NET_NUMBER_OF_DESKTOPS \
-#      -remove _NET_DESKTOP_NAMES \
-#      -remove _NET_CURRENT_DESKTOP 2> /dev/null
+#Stop all running steam process, as this would break steam login
+killall steam.sh
+killall steam
+killall MainThrd
 
+#If it doesn't stop, force it
+killall -9 steam
+killall -9 steam.sh
+killall -9 MainThrd
+
+# Start basic window manager and video settings
 xfwm4 --replace --daemon --compositor=off
 which nvidia-settings && nvidia-settings -l 
 which gnome-settings-daemon && gnome-settings-daemon &
 
-if [ -f /etc/steam-hacked ] 
-then
-    exec steam steam://open/bigpicture
-else
-    exec steam -bigpicture
-fi
+#Reset variables
+unset prefix
+unset parameters
+unset program
+
+#Workaround for "team fortress 2" black screen bug
+export LANG=C
+export LC_NUMERIC=POSIX
+
+#Workaround for issues when using special font configurations
+export FONTCONFIG_FILE=/dev/null
+
+#Set correct parameters, if it's hacked mode or normal mode
+[ -f /etc/steam-hacked ] && parameters='steam://open/bigpicture' || parameters='-bigpicture'
+
+#Set optirun as prefix if available
+which optirun && prefix=optirun
+
+#Set primusrun as prefix if available
+which primusrun && prefix=primusrun
+
+#Get full path of steam executable
+program=`which steam`
+
+#Execute STEAM
+exec $prefix $program $parameters
 
