@@ -16,15 +16,21 @@
 #along with this program; if not, write to the Free Software
 #Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#Stop all running steam process, as this would break steam login
-killall steam.sh
-killall steam
-killall MainThrd
+function stop(){
+    #Stop all running steam process
+    killall steam.sh
+    killall steam
+    killall MainThrd
+    #If it doesn't stop, force it
+    killall -9 steam
+    killall -9 steam.sh
+    killall -9 MainThrd
 
-#If it doesn't stop, force it
-killall -9 steam
-killall -9 steam.sh
-killall -9 MainThrd
+}
+
+
+stop #call stop function
+
 
 # Start basic window manager and video settings
 xfwm4 --replace --daemon --compositor=off
@@ -56,5 +62,22 @@ which primusrun && prefix=primusrun
 program=`which steam`
 
 #Execute STEAM
-exec $prefix $program $parameters
+old_date=`date +%s`
+count=0
+while ! $prefix $program $parameters
+do
+    #oops: Something went wrong...
+    stop #Call stop function
+    
+    #Too long time without crashing, forget about it...
+    new_date=`date +%s`
+    (( $(( $old_date + 30 )) < $new_date )) && count=0
+    count=$(( $count + 1 ))
+    
+    #Too much crash, give and go away...
+    (( count > 3 )) && exit 1
+    
+    #Refresh timer
+    old_date=$new_date
+done
 
