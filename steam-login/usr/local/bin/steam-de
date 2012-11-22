@@ -61,6 +61,10 @@ which primusrun && prefix=primusrun
 #Get full path of steam executable
 program=`which steam`
 
+
+#HACK: Non hacked version doesn't close after finish
+[-f /etc/steam-hacked ] || bash -c "sleep 10s; gdialog --msgbox 'Click ok to close STEAM'; echo > /tmp/steam-force-close; killall steam steam.sh MainThrd; killall -9 steam steam.sh MainThrd" &
+
 #Execute STEAM
 old_date=`date +%s`
 count=0
@@ -68,7 +72,12 @@ while ! $prefix $program $parameters
 do
     #oops: Something went wrong...
     stop #Call stop function
-    
+    if [ -f /tmp/steam-force-close ] 
+    then    
+        rm /tmp/steam-force-close 
+        exit 0
+    fi
+
     #Too long time without crashing, forget about it...
     new_date=`date +%s`
     (( $(( $old_date + 30 )) < $new_date )) && count=0
