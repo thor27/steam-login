@@ -5,6 +5,8 @@ Put STEAM BigPicture mode at login screen
 
 NEWS
 ----
+* Version 4
+Improved compatibility with more games, support for nvidia optimus (if bumblebee and/or Primus is present), restart steam if it crashes, hack to close steam when not using the "hacked version", workaround for TF2 black screen bug and for text fonts bug with some specific fonts settings. 
 
 * Version 3
 Improved multimonitor setup, loading gnome (unity) settings, chagend openbox to xfwm4: improving compatibility, removing unecessary new options added to login screen and fixing the need to "alt+tab" after playing a game in hacked version
