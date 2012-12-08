@@ -6,7 +6,7 @@ Put STEAM BigPicture mode at login screen
 NEWS
 ----
 
-*Version 5* <br/>
+* *Version 5* <br/>
 Added STEAM badge icon for lightdm, fixed bad quality package and improved package information, script modified to monitor windows, so steam always recover focus after gameplay and there is no need anymore to click in ok to close steam on non-hacked version
 
 * *Version 4* <br/>
