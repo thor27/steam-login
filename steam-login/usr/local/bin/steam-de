@@ -61,32 +61,35 @@ which primusrun && prefix=primusrun
 #Get full path of steam executable
 program=`which steam`
 
-
-#HACK: Non hacked version doesn't close after finish
-[-f /etc/steam-hacked ] || bash -c "sleep 10s; gdialog --msgbox 'Click ok to close STEAM'; echo > /tmp/steam-force-close; killall steam steam.sh MainThrd; killall -9 steam steam.sh MainThrd" &
+#gnome-terminal &
 
 #Execute STEAM
 old_date=`date +%s`
 count=0
-while ! $prefix $program $parameters
-do
-    #oops: Something went wrong...
-    stop #Call stop function
-    if [ -f /tmp/steam-force-close ] 
-    then    
-        rm /tmp/steam-force-close 
-        exit 0
-    fi
+NUMBER_OF_WINDOWS=`wmctrl -l | wc -l`
 
-    #Too long time without crashing, forget about it...
-    new_date=`date +%s`
-    (( $(( $old_date + 30 )) < $new_date )) && count=0
-    count=$(( $count + 1 ))
-    
-    #Too much crash, give and go away...
-    (( count > 3 )) && exit 1
-    
-    #Refresh timer
-    old_date=$new_date
+$prefix $program $parameters &
+
+while (( $NUMBER_OF_WINDOWS == `wmctrl -l | wc -l` ))
+do
+   sleep 1
 done
 
+NUMBER_OF_WINDOWS_AND_STEAM=`wmctrl -l | wc -l`
+GAME_RUNNING=0
+WINDOWS_RUNNING_NOW=`wmctrl -l | wc -l` 
+while (( $NUMBER_OF_WINDOWS < $WINDOWS_RUNNING_NOW ))
+do
+  if (( $GAME_RUNNING == 0 )) && (( $WINDOWS_RUNNING_NOW > $NUMBER_OF_WINDOWS_AND_STEAM))
+  then
+    GAME_RUNNING=1
+  elif (( $GAME_RUNNING == 1 )) && (( $WINDOWS_RUNNING_NOW <= $NUMBER_OF_WINDOWS_AND_STEAM))
+  then
+    GAME_RUNNING=0
+    wmctrl -a Steam
+  fi
+  sleep 1
+  WINDOWS_RUNNING_NOW=`wmctrl -l | wc -l` 
+done
+
+stop

@@ -1,9 +1,9 @@
 Package: steam-login
-Version: 4
+Version: 5
 Section: Games
 Priority: optional
 Architecture: all
-Depends: xfwm4
+Depends: xfwm4,wmctrl
 Maintainer: Thomaz Reis <thor27@gmail.com>
 Installed-size: 52
 Homepage: https://github.com/thor27/steam-login/
