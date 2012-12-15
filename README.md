@@ -25,10 +25,16 @@ Hacked version: After exiting you will need to press on the steam window on "ste
 
 INSTALL
 -------
+To install, just add the ppa so you can keep track of package updates:
 
-Install <a href="https://github.com/downloads/thor27/steam-login/steam-login_5_all.deb">steam-login_5_all.deb</a> if you have access to the beta. This will still work if you don't access the beta, you just can't click on the window saying that the closed beta is not available to you.
+```
+sudo add-apt-repository ppa:thor27-gmail/steam-desktop 
+sudo apt-get update 
+sudo apt-get install steam-login
+```
 
-Install <a href="https://github.com/downloads/thor27/steam-login/steam-login-hacked_5_all.deb">steam-login-hacked_5_all.deb</a> if you do not have access to the beta. After exiting the big screen mode, you need to click on steam menu, and exit do quit. The close button won't work. NOT TESTED ON VERSION 5
+Since open beta is comming soon the hacked-version will be dropped. 
+You can find older releases here: https://github.com/thor27/steam-login/downloads
 
 HACKING ON IT
 -------------
