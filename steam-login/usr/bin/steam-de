@@ -28,9 +28,11 @@ function stop(){
 
 }
 
+function check_steam_window(){
+    wmctrl -l | tr -s " " | cut -f4- -d" " | grep '^Steam$'
+}
 
-stop #call stop function
-
+stop 
 
 # Start basic window manager and video settings
 xfwm4 --replace --daemon --compositor=off
@@ -42,15 +44,7 @@ unset prefix
 unset parameters
 unset program
 
-#Workaround for "team fortress 2" black screen bug
-export LANG=C
-export LC_NUMERIC=POSIX
-
-#Workaround for issues when using special font configurations
-export FONTCONFIG_FILE=/dev/null
-
-#Set correct parameters, if it's hacked mode or normal mode
-[ -f /etc/steam-hacked ] && parameters='steam://open/bigpicture' || parameters='-bigpicture'
+parameters='-bigpicture'
 
 #Set optirun as prefix if available
 which optirun && prefix=optirun
@@ -61,35 +55,22 @@ which primusrun && prefix=primusrun
 #Get full path of steam executable
 program=`which steam`
 
-#gnome-terminal &
-
 #Execute STEAM
 old_date=`date +%s`
 count=0
-NUMBER_OF_WINDOWS=`wmctrl -l | wc -l`
 
 $prefix $program $parameters &
 
-while (( $NUMBER_OF_WINDOWS == `wmctrl -l | wc -l` ))
+while ! check_steam_window
 do
-   sleep 1
+    sleep 0.5
 done
 
-NUMBER_OF_WINDOWS_AND_STEAM=`wmctrl -l | wc -l`
-GAME_RUNNING=0
-WINDOWS_RUNNING_NOW=`wmctrl -l | wc -l` 
-while (( $NUMBER_OF_WINDOWS < $WINDOWS_RUNNING_NOW ))
+while check_steam_window
 do
-  if (( $GAME_RUNNING == 0 )) && (( $WINDOWS_RUNNING_NOW > $NUMBER_OF_WINDOWS_AND_STEAM))
-  then
-    GAME_RUNNING=1
-  elif (( $GAME_RUNNING == 1 )) && (( $WINDOWS_RUNNING_NOW <= $NUMBER_OF_WINDOWS_AND_STEAM))
-  then
-    GAME_RUNNING=0
-    wmctrl -a Steam
-  fi
-  sleep 1
-  WINDOWS_RUNNING_NOW=`wmctrl -l | wc -l` 
+    sleep 5
 done
 
 stop
+
+
