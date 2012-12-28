@@ -4,6 +4,7 @@ Section: Games
 Priority: optional
 Architecture: all
 Depends: xfwm4,wmctrl
+Recommends: xserver-xorg-input-joystick
 Maintainer: Thomaz Reis <thor27@gmail.com>
 Installed-size: 52
 Homepage: https://github.com/thor27/steam-login/

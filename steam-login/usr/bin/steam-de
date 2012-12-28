@@ -32,12 +32,28 @@ function check_steam_window(){
     wmctrl -l | tr -s " " | cut -f4- -d" " | grep '^Steam$'
 }
 
+function disable_joysticks() {
+    for dev in `find /dev/input -name js*`; do
+        # Get the name of the joystick model
+        name="`udevadm info --query=property --name=$dev | grep ID_VENDOR_ENC | cut -c15- -` `udevadm info --query=property --name=$dev | grep ID_MODEL_ENC | cut -c14- -`"
+        # Escape \ sequences
+        name="`echo -e "$name"`"
+        # Disable the joystick
+        xinput --list | grep "$name" | grep -Pwo "id=[0-9]*" | grep -Pwo "[0-9]*" | xargs xinput --disable
+    done
+}
+
 stop 
 
 # Start basic window manager and video settings
 xfwm4 --replace --daemon --compositor=off
 which nvidia-settings && nvidia-settings -l 
 which gnome-settings-daemon && gnome-settings-daemon &
+
+# Disable xinput for joysticks
+if [ -x /usr/bin/xinput ]; then
+    disable_joysticks
+fi
 
 #Reset variables
 unset prefix
@@ -72,5 +88,4 @@ do
 done
 
 stop
-
 
