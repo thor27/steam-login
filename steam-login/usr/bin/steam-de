@@ -76,10 +76,15 @@ old_date=`date +%s`
 count=0
 
 $prefix $program $parameters &
-
+PID=$!
 while ! check_steam_window
 do
     sleep 0.5
+    if ! ps -p $PID
+    then
+        zenity --error --text "Ops! Steam had some trouble to run. That can be a problem with steam itself or with your configuration."
+        exit 1
+    fi
 done
 
 while check_steam_window
