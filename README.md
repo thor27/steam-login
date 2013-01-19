@@ -6,6 +6,12 @@ Put STEAM BigPicture mode at login screen
 NEWS
 ----
 
+* *Version 6.1* <br/>
+Change recommends to suggests for xserver-xorg-input-joystick as users may have trouble in some systems and other desktops
+
+* *Version 6* <br/>
+Shows error message when steam fails to run, add possibility to login with the gamepad in lightdm (Thanks to  pmk1c <ruben.uwe.grimm@gmail.com>), code cleanup, removed some useless workaround, thanks to steam fixes, replaced steam-de default folder
+
 * *Version 5* <br/>
 Added STEAM badge icon for lightdm, fixed bad quality package and improved package information, script modified to monitor windows, so steam always recover focus after gameplay and there is no need anymore to click in ok to close steam on non-hacked version
 
