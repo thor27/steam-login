@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=STEAM
+Name=Steam
 Comment=This session logs you directly to STEAM
 Exec=steam-de
 Icon=steam
