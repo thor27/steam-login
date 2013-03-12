@@ -60,7 +60,9 @@ unset prefix
 unset parameters
 unset program
 
-parameters='-bigpicture'
+# -bigpicture does not work anymore
+#parameters='-bigpicture'
+parameters='steam://open/BigPicture'
 
 #Set optirun as prefix if available
 which optirun && prefix=optirun
@@ -72,9 +74,6 @@ which primusrun && prefix=primusrun
 program=`which steam`
 
 #Execute STEAM
-old_date=`date +%s`
-count=0
-
 $prefix $program $parameters &
 PID=$!
 while ! check_steam_window
@@ -92,5 +91,6 @@ do
     sleep 5
 done
 
-stop
+#Exit steam nicely...
+steam steam://ExitSteam
 
