@@ -62,7 +62,7 @@ unset program
 
 # -bigpicture does not work anymore
 #parameters='-bigpicture'
-parameters='steam://open/BigPicture'
+parameters='-tenfoot'
 
 #Set optirun as prefix if available
 which optirun && prefix=optirun
@@ -88,7 +88,7 @@ done
 
 while check_steam_window
 do
-    sleep 5
+    sleep 10
 done
 
 #Exit steam nicely...
