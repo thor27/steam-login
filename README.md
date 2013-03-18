@@ -29,7 +29,8 @@ Now use openbox Window Manager to improve game compatibility corectly setting fo
 KNOWN ISSUES
 ------------
 
-Hacked version: After exiting you will need to press on the steam window on "steam" and after "exit". If you press in the close button the window will only minimize, you may need to press alt+tab again to gain focus and then exit it.
+Steam, sometimes, may get not at the foreground, mostly when something went wrong with a game or staem itself. If this happens just press ALT+TAB to get back do Steam Big Picture.
+
 
 INSTALL
 -------
