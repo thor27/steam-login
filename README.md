@@ -5,6 +5,8 @@ Put STEAM BigPicture mode at login screen
 
 NEWS
 ----
+* *Version 7* <br/>
+Code cleanup, fix bug while bigpicture was not working with newer steam versions, make it less intensive and changed Steam name to not be all caps anymore (thanks to Zeroedout <alishams.hassam@gmail.com>)
 
 * *Version 6.1* <br/>
 Change recommends to suggests for xserver-xorg-input-joystick as users may have trouble in some systems and other desktops
@@ -39,8 +41,8 @@ sudo apt-get update
 sudo apt-get install steam-login
 ```
 
-Since open beta is comming soon the hacked-version will be dropped. 
-You can find older releases here: https://github.com/thor27/steam-login/downloads
+If you don't (or can't) use PPA, you can directly donwload the latest version from here:
+<a href="https://launchpad.net/~thor27-gmail/+archive/steam-desktop/+files/steam-login_7_all.deb">steam-login_7_all.deb</a>
 
 HACKING ON IT
 -------------
