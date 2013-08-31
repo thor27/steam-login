@@ -68,8 +68,7 @@ parameters='-tenfoot'
 which optirun && prefix=optirun
 
 #Set primusrun as prefix if available
-which primusrun && prefix=primusrun
-
+which primusrun && prefix=vblank_mode=0 optirun -b primus 
 #Get full path of steam executable
 program=`which steam`
 
