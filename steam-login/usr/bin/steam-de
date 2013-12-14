@@ -62,7 +62,7 @@ unset program
 
 # -bigpicture does not work anymore
 #parameters='-bigpicture'
-parameters='-tenfoot'
+parameters='-tenfoot -steamos -enableremotecontrol'
 
 #Set optirun as prefix if available
 which optirun && prefix=optirun
