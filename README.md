@@ -5,6 +5,9 @@ Put STEAM BigPicture mode at login screen
 
 NEWS
 ----
+* *Version 8* <br/>
+Improve primusrun. better performance with "optirun -b primus" than "primusrun" (thanks to xXxDeadStarxXx <axy.david@gmail.com>). PPA for Ubuntu Saucy.
+
 * *Version 7* <br/>
 Code cleanup, fix bug while bigpicture was not working with newer steam versions, make it less intensive and changed Steam name to not be all caps anymore (thanks to Zeroedout <alishams.hassam@gmail.com>)
 
@@ -43,7 +46,7 @@ sudo apt-get install steam-login
 ```
 
 If you don't (or can't) use PPA, you can directly donwload the latest version from here:
-<a href="https://launchpad.net/~thor27-gmail/+archive/steam-desktop/+files/steam-login_7_all.deb">steam-login_7_all.deb</a>
+<a href="https://launchpad.net/~thor27-gmail/+archive/steam-desktop/+files/steam-login_8_all.deb">steam-login_8_all.deb</a>
 
 HACKING ON IT
 -------------
