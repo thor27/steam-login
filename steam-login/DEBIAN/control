@@ -3,7 +3,7 @@ Version: 6
 Section: Games
 Priority: optional
 Architecture: all
-Depends: xfwm4,wmctrl
+Depends: xfwm4,wmctrl,steam
 Suggests: xserver-xorg-input-joystick
 Maintainer: Thomaz Reis <thor27@gmail.com>
 Installed-size: 52
