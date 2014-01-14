@@ -60,9 +60,7 @@ unset prefix
 unset parameters
 unset program
 
-# -bigpicture does not work anymore
-#parameters='-bigpicture'
-parameters='-tenfoot'
+parameters='-tenfoot -enableremotecontrol'
 
 #Set optirun as prefix if available
 which optirun && prefix=optirun
@@ -72,9 +70,16 @@ which primusrun && prefix=vblank_mode=0 optirun -b primus
 #Get full path of steam executable
 program=`which steam`
 
+export SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS=0
+
+# Disable DPMS and screen blanking 
+xset -dpms
+xset s off
+
 #Execute STEAM
 $prefix $program $parameters &
 PID=$!
+
 while ! check_steam_window
 do
     sleep 0.5
