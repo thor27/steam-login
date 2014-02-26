@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Steam (SM)
+Comment=This session logs you directly to STEAM on small mode.
+Exec=steam-sm
+Icon=steam
+Type=Application
