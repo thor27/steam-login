@@ -1,0 +1,96 @@
+steam-login (9.1~utopic1) utopic; urgency=low
+
+  * Utopic release
+
+ -- Thomaz Reis <thor27@gmail.com>  Sun, 12 Oct 2014 22:26:00 -0300
+ 
+steam-login (9) utopic; urgency=low
+
+  * Some improventes taken from SteamOS
+
+ -- Thomaz Reis <thor27@gmail.com>  Sun, 12 Oct 2014 22:06:00 -0300
+                                    
+steam-login (8~raring1) raring; urgency=low
+
+  * Backport to raring.
+
+ -- Thomaz Reis <thor27@gmail.com>  Sun, 5 Jan 2014 22:28:00 -0200
+
+steam-login (8) saucy; urgency=low
+
+  * better performance with "optirun -b primus" than "primusrun" (with or without vblanc_mode on) (Thanks to xXxDeadStarxXx <axy.david@gmail.com>)
+
+ -- Thomaz Reis <thor27@gmail.com>  Sun, 5 Jan 2014 22:22:00 -0200
+
+steam-login (7~raring1) raring; urgency=low
+
+  * Backport to raring.
+
+ -- Thomaz Reis <thor27@gmail.com>  Thu, 18 Mar 2013 20:35:00 -0300
+
+steam-login (7~precise1) precise; urgency=low
+
+  * Backport to precise.
+
+ -- Thomaz Reis <thor27@gmail.com>  Thu, 18 Mar 2013 20:35:00 -0300
+
+steam-login (7) quantal; urgency=low
+
+  * Code cleanup
+  * Fix bug while bigpicture was not working with newer steam versions
+  * Make it less intensive
+  * Changed Steam name to not be all caps anymore (thanks to Zeroedout <alishams.hassam@gmail.com>)
+
+ -- Thomaz Reis <thor27@gmail.com>  Thu, 18 Mar 2013 20:35:00 -0300
+
+
+steam-login (6.1~raring1) raring; urgency=low
+
+  * Backport to raring.
+
+ -- Thomaz Reis <thor27@gmail.com>  Thu, 17 Jan 2013 22:54:00 -0200
+
+steam-login (6.1~precise1) precise; urgency=low
+
+  * Backport to precise.
+
+ -- Thomaz Reis <thor27@gmail.com>  Thu, 17 Jan 2013 22:53:00 -0200
+
+steam-login (6.1) quantal; urgency=low
+
+  * Change recommends to suggests for xserver-xorg-input-joystick as users may have trouble in some systems and other desktops
+
+ -- Thomaz Reis <thor27@gmail.com>  Thu, 17 Jan 2013 21:05:00 -0200
+
+steam-login (6~raring1) raring; urgency=low
+
+  * Backport to raring.
+
+ -- Thomaz Reis <thor27@gmail.com>  Thu, 17 Jan 2013 21:05:00 -0200
+
+steam-login (6~precise1) precise; urgency=low
+
+  * Backport to precise.
+
+ -- Thomaz Reis <thor27@gmail.com>  Thu, 17 Jan 2013 21:03:00 -0200
+
+steam-login (6) quantal; urgency=low
+
+  * Shows error message when steam fails to run
+  * Add possibility to login with the gamepad in lightdm (Thanks to  pmk1c <ruben.uwe.grimm@gmail.com>)
+  * Code cleanup, removed some useless workaround, thanks to steam fixes
+  * Replaced steam-de default folder
+
+ -- Thomaz Reis <thor27@gmail.com>  Thu, 17 Jan 2013 20:38:00 -0200
+
+steam-login (5a) quantal; urgency=low
+
+  * Update build dependencies.
+
+ -- Thomaz Reis <thor27@gmail.com>  Thu, 15 Dec 2012 17:37:00 -0200
+
+steam-login (5) quantal; urgency=low
+
+  * New upstream release.
+
+ -- Thomaz Reis <thor27@gmail.com>  Thu, 13 Dec 2012 14:00:00 -0200
