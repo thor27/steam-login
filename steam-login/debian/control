@@ -1,0 +1,19 @@
+Source: steam-login
+Section: games
+Priority: optional
+Maintainer: Thomaz Reis <thor27@gmail.com>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.5
+Homepage: https://github.com/thor27/steam-login/
+Vcs-Git: https://github.com/thor27/steam-login.git
+Vcs-Browser: https://github.com/thor27/steam-login/
+
+Package: steam-login
+Architecture: all
+Depends: xfwm4, wmctrl, steam | steam-launcher
+Suggests: xserver-xorg-input-joystick
+Description: Put Steam BigPicture mode at login screen.
+ With the release of Steam Beta, and steam BigPicture mode on Linux, this
+ package will put Steam as a login option, so you will be able to open only
+ Steam and needed software to make it run correctly.
+ It's almost a Steam Desktop.
