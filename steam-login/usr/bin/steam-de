@@ -96,5 +96,5 @@ do
 done
 
 #Exit steam nicely...
-steam steam://ExitSteam
+steam -shutdown
 
