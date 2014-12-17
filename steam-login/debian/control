@@ -10,8 +10,7 @@ Vcs-Browser: https://github.com/thor27/steam-login/
 
 Package: steam-login
 Architecture: all
-Depends: xfwm4, wmctrl
-Recommends: steam | steam-launcher
+Depends: xfwm4, wmctrl, steam | steam-launcher
 Suggests: xserver-xorg-input-joystick
 Description: Put Steam BigPicture mode at login screen.
  With the release of Steam Beta, and steam BigPicture mode on Linux, this
