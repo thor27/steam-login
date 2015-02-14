@@ -10,11 +10,11 @@ Vcs-Browser: https://github.com/thor27/steam-login/
 
 Package: steam-session
 Architecture: all
-Depends: xfwm4, wmctrl, steam | steam-launcher, zenity
+Depends: steam | steam-launcher, wmctrl, xfwm4, zenity
 Suggests: xserver-xorg-input-joystick
 Provides: steam-login
 Replaces: steam-login
-Description: put Steam BigPicture mode at login screen
+Description: Launch Steam Big Picture from your login screen
  With the release of Steam Beta, and steam BigPicture mode on Linux, this
  package will put Steam as a login option, so you will be able to open only
  Steam and needed software to make it run correctly.
