@@ -18,9 +18,9 @@ Depends:
  xfwm4,
  xinput,
  zenity
-Recommends: gnome-settings-daemon
 Suggests:
  bumblebee,
+ gnome-settings-daemon,
  nvidia-settings,
  primus,
  xserver-xorg-input-joystick
