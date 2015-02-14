@@ -10,7 +10,12 @@ Vcs-Browser: https://github.com/thor27/steam-login/
 
 Package: steam-session
 Architecture: all
-Depends: steam | steam-launcher, wmctrl, xfwm4, zenity
+Depends:
+ ${misc:Depends},
+ steam | steam-launcher,
+ wmctrl,
+ xfwm4,
+ zenity
 Suggests: xserver-xorg-input-joystick
 Provides: steam-login
 Replaces: steam-login
