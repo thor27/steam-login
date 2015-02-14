@@ -17,7 +17,6 @@ Depends:
  x11-xserver-utils,
  xfwm4,
  xinput,
- xset,
  zenity
 Recommends: gnome-settings-daemon
 Suggests:
