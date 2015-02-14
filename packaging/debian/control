@@ -14,9 +14,17 @@ Depends:
  ${misc:Depends},
  steam | steam-launcher,
  wmctrl,
+ x11-xserver-utils,
  xfwm4,
+ xinput,
+ xset,
  zenity
-Suggests: xserver-xorg-input-joystick
+Recommends: gnome-settings-daemon
+Suggests:
+ bumblebee,
+ nvidia-settings,
+ primus,
+ xserver-xorg-input-joystick
 Provides: steam-login
 Replaces: steam-login
 Description: Launch Steam Big Picture from your login screen
