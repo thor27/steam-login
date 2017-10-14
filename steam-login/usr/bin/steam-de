@@ -43,11 +43,11 @@ function disable_joysticks() {
     done
 }
 
-stop 
+stop
 
 # Start basic window manager and video settings
 xfwm4 --replace --daemon --compositor=off
-which nvidia-settings && nvidia-settings -l 
+which nvidia-settings && nvidia-settings -l
 which gnome-settings-daemon && gnome-settings-daemon &
 
 # Disable xinput for joysticks
@@ -66,13 +66,17 @@ parameters='-tenfoot -enableremotecontrol'
 which optirun && prefix=optirun
 
 #Set primusrun as prefix if available
-which primusrun && prefix=vblank_mode=0 optirun -b primus 
+which primusrun && prefix=vblank_mode=0 optirun -b primus
 #Get full path of steam executable
 program=`which steam`
 
+if command -v steam-native &> /dev/null; then
+        program="$(which steam-native)"
+fi
+
 export SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS=0
 
-# Disable DPMS and screen blanking 
+# Disable DPMS and screen blanking
 xset -dpms
 xset s off
 
@@ -97,4 +101,3 @@ done
 
 #Exit steam nicely...
 steam -shutdown
-
