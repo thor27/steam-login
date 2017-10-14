@@ -33,7 +33,8 @@ function check_steam_window(){
 }
 
 function disable_joysticks() {
-    for dev in `find /dev/input -name js*`; do
+    find /dev/input -name "js*" | \
+    while read -r dev; do
         # Get the name of the joystick model
         name="`udevadm info --query=property --name=$dev | grep ID_VENDOR_ENC | cut -c15- -` `udevadm info --query=property --name=$dev | grep ID_MODEL_ENC | cut -c14- -`"
         # Escape \ sequences
