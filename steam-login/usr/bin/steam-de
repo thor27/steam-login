@@ -16,6 +16,10 @@
 #along with this program; if not, write to the Free Software
 #Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+function cmd_exist(){
+        command -v "$1" &> /dev/null;
+}
+
 function stop(){
     #Stop all running steam process
     killall steam.sh
@@ -48,11 +52,11 @@ stop
 
 # Start basic window manager and video settings
 xfwm4 --replace --daemon --compositor=off
-which nvidia-settings && nvidia-settings -l
-which gnome-settings-daemon && gnome-settings-daemon &
+cmd_exist nvidia-settings && nvidia-settings -l
+cmd_exist gnome-settings-daemon && gnome-settings-daemon &
 
 # Disable xinput for joysticks
-if [ -x /usr/bin/xinput ]; then
+if cmd_exist xinput; then
     disable_joysticks
 fi
 
@@ -64,14 +68,15 @@ unset program
 parameters='-tenfoot -enableremotecontrol'
 
 #Set optirun as prefix if available
-which optirun && prefix=optirun
+cmd_exist optirun && prefix=optirun
 
 #Set primusrun as prefix if available
-which primusrun && prefix=vblank_mode=0 optirun -b primus
+cmd_exist primusrun && prefix=vblank_mode=0 optirun -b primus
 #Get full path of steam executable
 program=`which steam`
 
-if command -v steam-native &> /dev/null; then
+# Use steam-native if available
+if cmd_exist steam-native; then
         program="$(which steam-native)"
 fi
 
@@ -101,4 +106,4 @@ do
 done
 
 #Exit steam nicely...
-steam -shutdown
+$program -shutdown
