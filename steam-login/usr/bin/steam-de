@@ -1,31 +1,31 @@
 #!/bin/bash
-#STEAM DE - Script for starting Steam at login
-#Copyright (C) 2012  Thomaz de Oliveira dos Reis <thor27@gmail.com>
+# STEAM DE - Script for starting Steam at login
+# Copyright (C) 2012  Thomaz de Oliveira dos Reis <thor27@gmail.com>
 #
-#This program is free software; you can redistribute it and/or
-#modify it under the terms of the GNU General Public License
-#as published by the Free Software Foundation; either version 2
-#of the License, or (at your option) any later version.
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
 #
-#This program is distributed in the hope that it will be useful,
-#but WITHOUT ANY WARRANTY; without even the implied warranty of
-#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#GNU General Public License for more details.
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
 #
-#You should have received a copy of the GNU General Public License
-#along with this program; if not, write to the Free Software
-#Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 function cmd_exist(){
         command -v "$1" &> /dev/null;
 }
 
 function stop(){
-    #Stop all running steam process
+    # Stop all running steam process
     killall steam.sh
     killall steam
     killall MainThrd
-    #If it doesn't stop, force it
+    # If it doesn't stop, force it
     killall -9 steam
     killall -9 steam.sh
     killall -9 MainThrd
@@ -67,10 +67,10 @@ unset program
 
 parameters='-tenfoot -enableremotecontrol'
 
-#Set optirun as prefix if available
+# Set optirun as prefix if available
 cmd_exist optirun && prefix=optirun
 
-#Set primusrun as prefix if available
+# Set primusrun as prefix if available
 cmd_exist primusrun && prefix=vblank_mode=0 optirun -b primus
 #Get full path of steam executable
 program=`which steam`
@@ -86,7 +86,7 @@ export SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS=0
 xset -dpms
 xset s off
 
-#Execute STEAM
+# Execute STEAM
 $prefix $program $parameters &
 PID=$!
 
@@ -105,5 +105,5 @@ do
     sleep 10
 done
 
-#Exit steam nicely...
+# Exit steam nicely...
 $program -shutdown
