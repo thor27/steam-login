@@ -104,6 +104,3 @@ while check_steam_window
 do
     sleep 10
 done
-
-# Exit steam nicely...
-$program -shutdown
