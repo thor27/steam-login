@@ -16,20 +16,38 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+## Define logging function
+INFO(){ echo "INFO: $*";}
+WARN(){ echo "WARN: $*";}
+ERRO(){ echo "ERRO: $*"; exit 1;}
+
 function cmd_exist(){
         command -v "$1" &> /dev/null;
 }
 
-function stop(){
-    # Stop all running steam process
-    killall steam.sh
-    killall steam
-    killall MainThrd
-    # If it doesn't stop, force it
-    killall -9 steam
-    killall -9 steam.sh
-    killall -9 MainThrd
+function steam_stopped(){
+    PIDS_TO_KILL=(
+        pgrep -U $UID -i steam
+        pgrep -U $UID -i steam.sh
+        pgrep -U $UID -i MainThrd
+    )
 
+    ((${#PIDS_TO_KILL[@]} == 0)) && return
+
+    # Stop all running steam process
+    for pid in "${PIDS_TO_KILL[@]}"; do
+            kill $pid &> /dev/null
+    done
+
+    # Wait a sec..
+    sleep 1
+
+    # If it doesn't stop, force it
+    for pid in "${PIDS_TO_KILL[@]}"; do
+            kill -s 9 $pid &> /dev/null
+    done
+
+    rm -f ~/.steampid
 }
 
 function check_steam_window(){
@@ -48,7 +66,8 @@ function disable_joysticks() {
     done
 }
 
-stop
+INFO "Ensure that steam stopped"
+steam_stopped
 
 # Start basic window manager and video settings
 xfwm4 --replace --daemon --compositor=off
