@@ -35,12 +35,19 @@ function get_path(){
         command -v "$1"
 }
 
+function steam_shutdown(){
+        steam -shutdown &
+        sleep 10
+}
+
 function steam_stopped(){
     if [ -f $HOME/.steampid ]; then
             read OLD_STEAM_PID < $HOME/.steampid
             if [ ! -d /proc/$OLD_STEAM_PID ]; then
                 unset OLD_STEAM_PID
                 rm -f $HOME/.steampid
+            else
+                steam_shutdown
             fi
     fi
     PIDS_TO_KILL=(
