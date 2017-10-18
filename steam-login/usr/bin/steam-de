@@ -16,38 +16,49 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+## Global vars
+export XFWM4_PID
+export STEAM_PID
+export STEAM_DE_PID=$$
+
 ## Define logging function
-INFO(){ echo "INFO: $*";}
-WARN(){ echo "WARN: $*";}
-ERRO(){ echo "ERRO: $*"; exit 1;}
+INFO(){ echo "INFO: $*" | tee -a /tmp/steam-de.$UID.log; }
+WARN(){ echo "WARN: $*" | tee -a /tmp/steam-de.$UID.log; }
+ERRO(){ echo "ERRO: $*" | tee -a /tmp/steam-de.$UID.log; exit 1; }
 
 function cmd_exist(){
         command -v "$1" &> /dev/null;
 }
 
+function get_path(){
+        command -v "$1"
+}
+
 function steam_stopped(){
+    if [ -f $HOME/.steampid ]; then
+            read OLD_STEAM_PID < $HOME/.steampid
+            if [ ! -d /proc/$OLD_STEAM_PID ]; then
+                unset OLD_STEAM_PID
+                rm -f $HOME/.steampid
+            fi
+    fi
     PIDS_TO_KILL=(
-        pgrep -U $UID -i steam
-        pgrep -U $UID -i steam.sh
-        pgrep -U $UID -i MainThrd
+        $OLD_STEAM_PID
+        $(pidof steam)
+        $(pidof steam.sh)
+        $(pidof MainThrd)
     )
 
     ((${#PIDS_TO_KILL[@]} == 0)) && return
 
     # Stop all running steam process
+    INFO "Pids to kill: ${PIDS_TO_KILL[*]}"
     for pid in "${PIDS_TO_KILL[@]}"; do
-            kill $pid &> /dev/null
+            while ((PID > 1)) && [ -d "/proc/$PID" ]; do
+                    kill $pid &> /dev/null && sleep 1
+                    kill -s 9 $pid &> /dev/null
+            done
     done
-
-    # Wait a sec..
-    sleep 1
-
-    # If it doesn't stop, force it
-    for pid in "${PIDS_TO_KILL[@]}"; do
-            kill -s 9 $pid &> /dev/null
-    done
-
-    rm -f ~/.steampid
 }
 
 function check_steam_window(){
@@ -66,60 +77,162 @@ function disable_joysticks() {
     done
 }
 
-INFO "Ensure that steam stopped"
-steam_stopped
 
-# Start basic window manager and video settings
-xfwm4 --replace --daemon --compositor=off
-cmd_exist nvidia-settings && nvidia-settings -l
-cmd_exist gnome-settings-daemon && gnome-settings-daemon &
+function kill_XFWM4(){
+        kill $XFWM4_PID &> /dev/null && sleep 1
+        kill -s 9 $XFWM4_PID &> /dev/null
+}
+
+function steam_de_exit(){
+        INFO "Steam-DE cooling"
+        steam_stopped &
+        kill_XFWM4 &
+        wait
+        exit 0
+}
+
+trap steam_de_exit SIGINT SIGTERM EXIT
+
+## Main
+INFO "Initialization"
+# Vars to switch logic
+# if supported things found
+export STEAM STEAM_NATIVE
+export OPTIRUN PRIMUSRUN
+export NVIDIA_SETTINGS
+export GNOME_SETTINGS_DAEMON
+export PREFIX=""
+export PROGRAM=""
+export STEAM_ARGS="-tenfoot -enableremotecontrol"
+
+if cmd_exist steam; then
+        STEAM="$(get_path steam)"
+        INFO "Check: steam found"
+else
+        ERRO "Steam not found in PATH"
+fi
+
+if cmd_exist steam-native; then
+        STEAM_NATIVE="$(get_path steam-native)"
+        STATUS="found"
+else
+        STATUS="missing"
+fi
+INFO "Check: steam-native $STATUS"
+
+if cmd_exist optirun; then
+        OPTIRUN="$(get_path optirun)"
+        STATUS="found"
+else
+        STATUS="missing"
+fi
+INFO "Check: optirun $STATUS"
+
+if cmd_exist primusrun; then
+        PRIMUSRUN="$(get_path primusrun)"
+        STATUS="found"
+else
+        STATUS="missing"
+fi
+INFO "Check: primusrun $STATUS"
+
+if cmd_exist nvidia-settings; then
+        NVIDIA_SETTINGS="$(get_path nvidia-settings)"
+        STATUS="found"
+else
+        STATUS="missing"
+fi
+INFO "Check: nvidia-settings $STATUS"
+
+if cmd_exist gnome-settings-daemon; then
+        GNOME_SETTINGS_DAEMON="$(get_path gnome-settings-daemon)"
+        STATUS="found"
+else
+        STATUS="missing"
+fi
+INFO "Check: gnome-settings-daemon $STATUS"
+
+if [ ! -z "$STEAM_NATIVE" ]; then
+        INFO "Use steam-native instead of steam"
+        PROGRAM="$STEAM_NATIVE"
+else
+        INFO "Use steam instead of steam-native"
+        PROGRAM="$STEAM"
+fi
+
+if [ ! -z "$OPTIRUN" ] || [ ! -z "$PRIMUSRUN" ]; then
+        if [ ! -z "$PRIMUSRUN" ]; then
+                INFO "Use primusrun instead of optirun"
+                export vblank_mode=0
+                PREFIX="$OPTIRUN -b primus"
+        else
+                INFO "Use optirun instead of primusrun"
+                PREFIX="$OPTIRUN"
+        fi
+fi
 
 # Disable xinput for joysticks
 if cmd_exist xinput; then
-    disable_joysticks
+        INFO "Disable xinput for jousticks"
+        disable_joysticks
 fi
 
-#Reset variables
-unset prefix
-unset parameters
-unset program
+INFO "Start XFWM4 Window manager"
+xfwm4 --replace --daemon --compositor=off
+XFWM4_PID="$(pidof xfwm4)"
 
-parameters='-tenfoot -enableremotecontrol'
-
-# Set optirun as prefix if available
-cmd_exist optirun && prefix=optirun
-
-# Set primusrun as prefix if available
-cmd_exist primusrun && prefix=vblank_mode=0 optirun -b primus
-#Get full path of steam executable
-program=`which steam`
-
-# Use steam-native if available
-if cmd_exist steam-native; then
-        program="$(which steam-native)"
+if [ ! -z "$NVIDIA_SETTINGS" ] || [ ! -z "$GNOME_SETTINGS_DAEMON" ]; then
+        INFO "Start basic video settings process"
+        if [ ! -z "$NVIDIA_SETTINGS" ]; then
+                INFO "Run nvidia-settings"
+                nvidia-settings -l
+        fi
+        if [ ! -z "$GNOME_SETTINGS_DAEMON" ]; then
+                INFO "Run gnome-settings-daemon"
+                gnome-settings-daemon &
+        fi
 fi
+
+INFO "Ensure that steam stopped"
+steam_stopped
 
 export SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS=0
-
-# Disable DPMS and screen blanking
+INFO "Disable: DPMS"
 xset -dpms
+
+INFO "Disable: screen blanking"
 xset s off
 
-# Execute STEAM
-$prefix $program $parameters &
-PID=$!
+INFO "Execute Steam"
+INFO "Exec line: $PREFIX $PROGRAM $STEAM_ARGS"
+if [ ! -z "$PREFIX" ]; then
+        $PREFIX $PROGRAM $STEAM_ARGS &
+else
+        $PROGRAM $STEAM_ARGS &
+fi
 
-while ! check_steam_window
-do
+read STEAM_PID < $HOME/.steampid
+
+INFO "Wait until steam window will be visible"
+while ! check_steam_window; do
     sleep 0.5
-    if ! ps -p $PID
-    then
+    if [ ! -d "/proc/$STEAM_PID" ]; then
         zenity --error --text "Ops! Steam had some trouble to run. That can be a problem with steam itself or with your configuration."
-        exit 1
+        ERRO "Ops! Steam had some trouble to run. That can be a problem with steam itself or with your configuration."
     fi
 done
+INFO "Steam working"
 
-while check_steam_window
-do
+INFO "Wait while steam running"
+
+# self kill on steam exit
+{
+        while [ -d "/proc/$STEAM_PID" ]; do sleep 1; done
+        kill $STEAM_DE_PID &> /dev/null
+} &
+
+while check_steam_window; do
     sleep 10
 done
+
+exit 0
