@@ -78,6 +78,9 @@ function disable_joysticks() {
     done
 }
 
+function kill_OpenBox(){
+        openbox --exit
+}
 
 function kill_XFWM4(){
         [ -z "$XFWM4_PID" ] && return
@@ -91,6 +94,7 @@ function steam_de_exit(){
         steam_stopped
         case $WM_NAME in
                 xfwm4) kill_XFWM4 ;;
+                openbox) kill_OpenBox ;;
         esac
         INFO "Steam-DE stopped"
         exit 0
@@ -118,10 +122,23 @@ else
 fi
 
 if cmd_exist xfwm4; then
-        INFO "Check: xfwm4 found"
         WM_NAME=xfwm4
+        STATUS="found"
 else
-        ERRO "xfwm4 not found in PATH"
+        STATUS="missing"
+fi
+INFO "Check: xfwm4 $STATUS"
+
+if cmd_exist openbox; then
+        WM_NAME=openbox
+        STATUS="found"
+else
+        STATUS="missing"
+fi
+INFO "Check: openbox $STATUS"
+
+if [ -z "$WM_NAME" ]; then
+        ERRO "Can't find supported WM in PATH"
 fi
 
 if cmd_exist steam-native; then
@@ -194,6 +211,10 @@ case $WM_NAME in
                 INFO "Start XFWM4 Window manager"
                 xfwm4 --replace --daemon --compositor=off
                 XFWM4_PID="$(pidof xfwm4)"
+        ;;
+        openbox)
+                INFO "Start OpenBox Window manager"
+                openbox --replace &
         ;;
 esac
 
