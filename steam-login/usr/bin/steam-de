@@ -79,6 +79,8 @@ function disable_joysticks() {
 
 
 function kill_XFWM4(){
+        [ -z "$XFWM4_PID" ] && return
+        [ ! -d "/proc/$XFWM4_PID" ] && return
         kill $XFWM4_PID &> /dev/null && sleep 1
         kill -s 9 $XFWM4_PID &> /dev/null
 }
