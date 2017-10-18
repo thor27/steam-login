@@ -85,9 +85,9 @@ function kill_XFWM4(){
 
 function steam_de_exit(){
         INFO "Steam-DE cooling"
-        steam_stopped &
-        kill_XFWM4 &
-        wait
+        steam_stopped
+        kill_XFWM4
+        INFO "Steam-DE stopped"
         exit 0
 }
 
