@@ -20,6 +20,7 @@
 export XFWM4_PID
 export STEAM_PID
 export STEAM_DE_PID=$$
+export WM_NAME
 
 ## Define logging function
 INFO(){ echo "INFO: $*" | tee -a /tmp/steam-de.$UID.log; }
@@ -88,7 +89,9 @@ function kill_XFWM4(){
 function steam_de_exit(){
         INFO "Steam-DE cooling"
         steam_stopped
-        kill_XFWM4
+        case $WM_NAME in
+                xfwm4) kill_XFWM4 ;;
+        esac
         INFO "Steam-DE stopped"
         exit 0
 }
@@ -112,6 +115,13 @@ if cmd_exist steam; then
         INFO "Check: steam found"
 else
         ERRO "Steam not found in PATH"
+fi
+
+if cmd_exist xfwm4; then
+        INFO "Check: xfwm4 found"
+        WM_NAME=xfwm4
+else
+        ERRO "xfwm4 not found in PATH"
 fi
 
 if cmd_exist steam-native; then
@@ -179,9 +189,14 @@ if cmd_exist xinput; then
         disable_joysticks
 fi
 
-INFO "Start XFWM4 Window manager"
-xfwm4 --replace --daemon --compositor=off
-XFWM4_PID="$(pidof xfwm4)"
+case $WM_NAME in
+        xfwm4)
+                INFO "Start XFWM4 Window manager"
+                xfwm4 --replace --daemon --compositor=off
+                XFWM4_PID="$(pidof xfwm4)"
+        ;;
+esac
+
 
 if [ ! -z "$NVIDIA_SETTINGS" ] || [ ! -z "$GNOME_SETTINGS_DAEMON" ]; then
         INFO "Start basic video settings process"
