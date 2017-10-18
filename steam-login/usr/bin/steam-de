@@ -249,11 +249,10 @@ else
         $PROGRAM $STEAM_ARGS &
 fi
 
-read STEAM_PID < $HOME/.steampid
-
 INFO "Wait until steam window will be visible"
 while ! check_steam_window; do
     sleep 0.5
+    read STEAM_PID < $HOME/.steampid
     if [ ! -d "/proc/$STEAM_PID" ]; then
         zenity --error --text "Ops! Steam had some trouble to run. That can be a problem with steam itself or with your configuration."
         ERRO "Ops! Steam had some trouble to run. That can be a problem with steam itself or with your configuration."
