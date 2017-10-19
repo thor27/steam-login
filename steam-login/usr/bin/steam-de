@@ -37,7 +37,11 @@ function get_path(){
 
 function steam_shutdown(){
         steam -shutdown &
-        sleep 10
+        count=0
+        while [ -d /proc/$OLD_STEAM_PID ]; do
+            sleep 0.1
+            ((count++==100)) && break
+        done
 }
 
 function steam_stopped(){
