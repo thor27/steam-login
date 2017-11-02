@@ -1,3 +1,9 @@
+steam-login (11) utopic; urgency=low
+
+  * This verison add a special manager for Steam that prevents focus loss. To get this version change to branch steam-manager
+
+ -- Thomaz Reis <thor27@gmail.com>  Sun, 2 Nov 2017 20:56:00 -0200
+
 steam-login (10) utopic; urgency=low
 
   * Big script refact and improved openbox support (thanks Nefelim4ag nefelim4ag@gmail.com).

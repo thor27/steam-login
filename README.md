@@ -1,4 +1,4 @@
-steam-login
+steam-session (steam-login)
 ===========
 
 Put STEAM BigPicture mode at login screen
