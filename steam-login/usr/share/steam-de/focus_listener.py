@@ -1,9 +1,10 @@
 # STEAM DE - Focus Listener
 #
-# Based on code by Stephan Sokolow
-# Source: https://gist.github.com/ssokolow/e7c9aae63fb7973e4d64cff969a78ae8
+# Adapted from
+# https://gist.github.com/ssokolow/e7c9aae63fb7973e4d64cff969a78ae8
 #
 # Copyright (C) 2017  Thomaz de Oliveira dos Reis <thor27@gmail.com>
+# Copyright (C) 2017  Stephan Sokolow <http://blog.ssokolow.com/contact/>
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
