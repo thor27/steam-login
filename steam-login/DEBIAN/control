@@ -1,10 +1,22 @@
 Package: steam-login
-Version: 6
+Version: 10
 Section: Games
 Priority: optional
 Architecture: all
-Depends: xfwm4,wmctrl,steam
-Suggests: xserver-xorg-input-joystick
+Depends:
+ ${misc:Depends},
+ steam | steam-launcher,
+ wmctrl,
+ x11-xserver-utils,
+ xfwm4,
+ xinput,
+ zenity
+Suggests:
+ bumblebee,
+ gnome-settings-daemon,
+ nvidia-settings,
+ primus,
+ xserver-xorg-input-joystick
 Maintainer: Thomaz Reis <thor27@gmail.com>
 Installed-size: 52
 Homepage: https://github.com/thor27/steam-login/

@@ -1,15 +1,21 @@
+steam-login (10) utopic; urgency=low
+
+  * Big script refact and improved openbox support (thanks Nefelim4ag nefelim4ag@gmail.com).
+
+ -- Thomaz Reis <thor27@gmail.com>  Sun, 12 Oct 2014 22:06:00 -0300
+
 steam-login (9.1~utopic1) utopic; urgency=low
 
   * Utopic release
 
  -- Thomaz Reis <thor27@gmail.com>  Sun, 12 Oct 2014 22:26:00 -0300
- 
+
 steam-login (9) utopic; urgency=low
 
   * Some improventes taken from SteamOS
 
  -- Thomaz Reis <thor27@gmail.com>  Sun, 12 Oct 2014 22:06:00 -0300
-                                    
+
 steam-login (8~raring1) raring; urgency=low
 
   * Backport to raring.

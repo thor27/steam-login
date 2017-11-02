@@ -5,6 +5,16 @@ Put STEAM BigPicture mode at login screen
 
 NEWS
 ----
+* *Version 11 - Test version with Steam manager* <br/>
+This  verison add a special manager for Steam that prevents focus loss.
+To get this version change to branch steam-manager
+
+* *Version 10 - Latest traditional version* <br/>
+Big script refact and improved openbox support (thanks Nefelim4ag <nefelim4ag@gmail.com>).
+
+* *Version 9* <br/>
+Some improventes taken from SteamOS
+
 * *Version 8* <br/>
 Improve primusrun. better performance with "optirun -b primus" than "primusrun" (thanks to xXxDeadStarxXx <axy.david@gmail.com>). PPA for Ubuntu Saucy.
 
@@ -21,7 +31,7 @@ Shows error message when steam fails to run, add possibility to login with the g
 Added STEAM badge icon for lightdm, fixed bad quality package and improved package information, script modified to monitor windows, so steam always recover focus after gameplay and there is no need anymore to click in ok to close steam on non-hacked version
 
 * *Version 4* <br/>
-Improved compatibility with more games, support for nvidia optimus (if bumblebee and/or Primus is present), restart steam if it crashes, hack to close steam when not using the "hacked version", workaround for TF2 black screen bug and for text fonts bug with some specific fonts settings. 
+Improved compatibility with more games, support for nvidia optimus (if bumblebee and/or Primus is present), restart steam if it crashes, hack to close steam when not using the "hacked version", workaround for TF2 black screen bug and for text fonts bug with some specific fonts settings.
 
 * *Version 3* <br/>
 Improved multimonitor setup, loading gnome (unity) settings, chagend openbox to xfwm4: improving compatibility, removing unecessary new options added to login screen and fixing the need to "alt+tab" after playing a game in hacked version
@@ -32,21 +42,19 @@ Now use openbox Window Manager to improve game compatibility corectly setting fo
 KNOWN ISSUES
 ------------
 
-Steam, sometimes, may "hide" itself, mostly when something went wrong with a game or staem itself. If this happens just press ALT+TAB to get back do Steam Big Picture.
-
+Steam, sometimes, may "hide" itself, mostly when something went wrong with a game or staem itself. If this happens just press ALT+TAB to get back do Steam Big Picture. (**this will likely not happens in version 10**)
 
 INSTALL
 -------
-To install on Ubuntu, just add the ppa so you can keep track of package updates:
+You can download deb packges from here:  <a href="https://drive.google.com/drive/folders/0B0E1Hoh3ktodYnk4NF9VY1dnblE?usp=sharing">Steam Login</a>
 
+**The PPA is really outdated**, and I'm not much inclined to maitain it anymore. If
+anything changes I will update here.
 ```
-sudo add-apt-repository ppa:thor27-gmail/steam-desktop 
-sudo apt-get update 
+sudo add-apt-repository ppa:thor27-gmail/steam-desktop
+sudo apt-get update
 sudo apt-get install steam-login
 ```
-
-If you don't (or can't) use PPA, you can directly donwload the latest version from here:
-<a href="https://launchpad.net/~thor27-gmail/+archive/steam-desktop/+files/steam-login_8_all.deb">steam-login_8_all.deb</a>
 
 On Arch you can install this by installing <a href="https://aur.archlinux.org/packages/steam-session-git/">steam-session-git</a> on the AUR.
 
