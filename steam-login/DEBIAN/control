@@ -6,7 +6,8 @@ Architecture: all
 Depends:
  ${misc:Depends},
  steam | steam-launcher,
- wmctrl,
+ python3,
+ python3-xlib,
  x11-xserver-utils,
  xfwm4,
  xinput,

@@ -13,7 +13,8 @@ Architecture: all
 Depends:
  ${misc:Depends},
  steam | steam-launcher,
- wmctrl,
+ python3,
+ python3-xlib,
  x11-xserver-utils,
  xfwm4,
  xinput,
@@ -31,4 +32,3 @@ Description: Launch Steam Big Picture from your login screen
  package will put Steam as a login option, so you will be able to open only
  Steam and needed software to make it run correctly.
  It's almost a Steam Desktop.
-
