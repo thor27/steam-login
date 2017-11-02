@@ -18,11 +18,11 @@
 
 ## Global vars
 export XFWM4_PID
-export STEAM_PID
 export STEAM_DE_PID=$$
 export WM_NAME
 
 ## Define logging function
+echo "Start Steam Session - `date`" > /tmp/steam-de.$UID.log
 INFO(){ echo "INFO: $*" | tee -a /tmp/steam-de.$UID.log; }
 WARN(){ echo "WARN: $*" | tee -a /tmp/steam-de.$UID.log; }
 ERRO(){ echo "ERRO: $*" | tee -a /tmp/steam-de.$UID.log; exit 1; }
@@ -35,8 +35,8 @@ function get_path(){
         command -v "$1"
 }
 
-function steam_shutdown(){
-        steam -shutdown &
+function wait_steam_shutdown() {
+        $STEAM -shutdown &
         count=0
         while [ -d /proc/$OLD_STEAM_PID ]; do
             sleep 0.1
@@ -51,7 +51,7 @@ function steam_stopped(){
                 unset OLD_STEAM_PID
                 rm -f $HOME/.steampid
             else
-                steam_shutdown
+                wait_steam_shutdown $1
             fi
     fi
     PIDS_TO_KILL=(
@@ -71,10 +71,6 @@ function steam_stopped(){
                     kill -s 9 $pid &> /dev/null
             done
     done
-}
-
-function check_steam_window(){
-    wmctrl -l | tr -s " " | cut -f4- -d" " | grep '^Steam$'
 }
 
 function disable_joysticks() {
@@ -110,8 +106,6 @@ function steam_de_exit(){
         INFO "Steam-DE stopped"
         exit 0
 }
-
-trap steam_de_exit SIGINT SIGTERM EXIT
 
 ## Main
 INFO "Initialization"
@@ -200,6 +194,8 @@ else
         PROGRAM="$STEAM"
 fi
 
+trap steam_de_exit SIGINT SIGTERM EXIT
+
 if [ ! -z "$OPTIRUN" ] || [ ! -z "$PRIMUSRUN" ]; then
         if [ ! -z "$PRIMUSRUN" ]; then
                 INFO "Use primusrun instead of optirun"
@@ -213,7 +209,7 @@ fi
 
 # Disable xinput for joysticks
 if cmd_exist xinput; then
-        INFO "Disable xinput for jousticks"
+        INFO "Disable xinput for joysticks"
         disable_joysticks
 fi
 
@@ -242,7 +238,7 @@ if [ ! -z "$NVIDIA_SETTINGS" ] || [ ! -z "$GNOME_SETTINGS_DAEMON" ]; then
         fi
 fi
 
-INFO "Ensure that steam stopped"
+INFO "Ensure that steam is not running"
 steam_stopped
 
 export SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS=0
@@ -252,35 +248,7 @@ xset -dpms
 INFO "Disable: screen blanking"
 xset s off
 
-INFO "Execute Steam"
-INFO "Exec line: $PREFIX $PROGRAM $STEAM_ARGS"
-if [ ! -z "$PREFIX" ]; then
-        $PREFIX $PROGRAM $STEAM_ARGS &
-else
-        $PROGRAM $STEAM_ARGS &
-fi
-
-INFO "Wait until steam window will be visible"
-while ! check_steam_window; do
-    sleep 0.5
-    read STEAM_PID < $HOME/.steampid
-    if [ ! -d "/proc/$STEAM_PID" ]; then
-        zenity --error --text "Ops! Steam had some trouble to run. That can be a problem with steam itself or with your configuration."
-        ERRO "Ops! Steam had some trouble to run. That can be a problem with steam itself or with your configuration."
-    fi
-done
-INFO "Steam working"
-
-INFO "Wait while steam running"
-
-# self kill on steam exit
-{
-        while [ -d "/proc/$STEAM_PID" ]; do sleep 1; done
-        kill $STEAM_DE_PID &> /dev/null
-} &
-
-while check_steam_window; do
-    sleep 10
-done
+INFO "Start Steam Manager"
+python3 /usr/share/steam-de/steamde.py 2>&1 | tee -a /tmp/steam-de.$UID.log
 
 exit 0
