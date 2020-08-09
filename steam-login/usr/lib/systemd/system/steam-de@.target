@@ -1,0 +1,14 @@
+# Copyright (C) 2020 ТяФ/ка (tyafffka) <tyafffka@yandex.ru>
+#
+# This file is part of steam-login package; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+
+[Unit]
+Description=Autologin directly to Steam DE for %i
+Requires=multi-user.target
+Wants=steam-de@%i.service
+Conflicts=rescue.service rescue.target
+After=multi-user.target rescue.service rescue.target steam-de@%i.service
+AllowIsolate=yes

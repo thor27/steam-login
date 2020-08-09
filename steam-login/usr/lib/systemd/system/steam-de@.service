@@ -1,0 +1,25 @@
+# Copyright (C) 2020 ТяФ/ка (tyafffka) <tyafffka@yandex.ru>
+#
+# This file is part of steam-login package; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+
+[Unit]
+Description=Steam DE for %i
+Wants=steam-de-xorg@vt1.service
+Conflicts=getty@tty1.service
+After=getty@tty1.service steam-de-xorg@vt1.service systemd-user-sessions.service systemd-logind.service
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+StartLimitIntervalSec=0
+User=%i
+WorkingDirectory=~
+TTYPath=/dev/tty1
+PAMName=login
+Environment=XDG_SESSION_TYPE=x11 DISPLAY=:0
+EnvironmentFile=-/etc/default/locale
+ExecStart=/bin/bash --login /usr/bin/steam-de -steamos

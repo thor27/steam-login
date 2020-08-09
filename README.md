@@ -3,6 +3,9 @@ steam-session (steam-login)
 
 Put STEAM BigPicture mode at login screen
 
+Also provide systemd target for direct login into STEAM BigPicture at system startup.
+To do so, add `systemd.unit=steam-de@<username>.target` to kernel options.
+
 NEWS
 ----
 * *Version 11 - Test version with Steam manager* <br/>
