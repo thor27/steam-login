@@ -117,7 +117,7 @@ export NVIDIA_SETTINGS
 export GNOME_SETTINGS_DAEMON
 export PREFIX=""
 export PROGRAM=""
-export STEAM_ARGS="-tenfoot -enableremotecontrol"
+export STEAM_ARGS="-tenfoot -enableremotecontrol $@"
 
 if cmd_exist steam; then
         STEAM="$(get_path steam)"
