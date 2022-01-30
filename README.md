@@ -46,7 +46,7 @@ Steam, sometimes, may "hide" itself, mostly when something went wrong with a gam
 
 INSTALL
 -------
-You can download deb packges from here:  <a href="https://drive.google.com/drive/folders/0B0E1Hoh3ktodYnk4NF9VY1dnblE?usp=sharing">Steam Login</a>
+You can download deb packges from here:  <a href="https://drive.google.com/drive/folders/0B0E1Hoh3ktodYnk4NF9VY1dnblE?resourcekey=0-VId7rpoEgiC5SUhOMopiMQ&usp=sharing">Steam Login</a>
 
 **The PPA is really outdated**, and I'm not much inclined to maitain it anymore. If
 anything changes I will update here.
