@@ -255,32 +255,37 @@ xset s off
 INFO "Execute Steam"
 INFO "Exec line: $PREFIX $PROGRAM $STEAM_ARGS"
 if [ ! -z "$PREFIX" ]; then
-        $PREFIX $PROGRAM $STEAM_ARGS &
+        $PREFIX $PROGRAM $STEAM_ARGS
 else
-        $PROGRAM $STEAM_ARGS &
+        $PROGRAM $STEAM_ARGS
 fi
 
-INFO "Wait until steam window will be visible"
-while ! check_steam_window; do
-    sleep 0.5
-    read STEAM_PID < $HOME/.steampid
-    if [ ! -d "/proc/$STEAM_PID" ]; then
-        zenity --error --text "Ops! Steam had some trouble to run. That can be a problem with steam itself or with your configuration."
-        ERRO "Ops! Steam had some trouble to run. That can be a problem with steam itself or with your configuration."
-    fi
-done
-INFO "Steam working"
+## all these lines are disabled, becouse i don't know why you would run steam in the background and then
+## use all kinds of hacky ways of testing for steam running... you could even start in the background, then use `wait`!!!
 
-INFO "Wait while steam running"
+# INFO "Wait until steam window will be visible"
+# while ! check_steam_window; do
+#     sleep 0.5
+#     read STEAM_PID < $HOME/.steampid
+#     if [ ! -d "/proc/$STEAM_PID" ]; then
+#         zenity --error --text "Ops! Steam had some trouble to run. That can be a problem with steam itself or with your configuration."
+#         ERRO "Ops! Steam had some trouble to run. That can be a problem with steam itself or with your configuration."
+#     fi
+# done
+# INFO "Steam working"
 
-# self kill on steam exit
-{
-        while [ -d "/proc/$STEAM_PID" ]; do sleep 1; done
-        kill $STEAM_DE_PID &> /dev/null
-} &
+# INFO "Wait while steam running"
 
-while check_steam_window; do
-    sleep 10
-done
+# # self kill on steam exit
+# {
+#         while [ -d "/proc/$STEAM_PID" ]; do sleep 1; done
+#         kill $STEAM_DE_PID &> /dev/null
+# } &
+
+# while check_steam_window; do
+#     sleep 10
+# done
+
+steam_de_exit
 
 exit 0
